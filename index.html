@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="updated.css">
+    <script src="updated.js" defer></script>
+</head>
+<body>
+    <div class="main" id="welcome-screen" style="display: block;">
+        <img src="Group 4.png" alt="">
+        <div class="start-button" id="start-button">
+            <h1>Start Now</h1>
+            <span>&gt;&gt;&gt;</span>
+        </div>
+        <div class="highest-score" id="highest-score" style="display: none;">
+            <h1 class="highest">HIGHEST SCORE:1/5</h1>
+        </div>
+        <p>Made with ❤️ by Aman Pandey</p>
+    </div>
+
+    <div class="quiz-container" id="quiz-screen" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <img src="group 4.png" alt="" width="222px" height="92px">
+            </div>
+            <div class="start-btn">
+                <h1>START</h1>
+            </div>
+            <div class="music-icon">
+                <img src="volumeup.png" alt="">
+            </div>
+            <div class="questions-count">
+                <p>1/5</p>
+            </div>
+        </div>
+        <div class="questions-container">
+            <div class="questions">
+                <p></p>
+            </div>
+            <div class="stop-watch">
+                <p>0:30</p>
+            </div>
+            <div class="options-container">
+                <div class="options-section">
+                    <!-- Options will be dynamically added here -->
+                </div>
+            </div>
+              <div href="#" class="previous">
+                    <span>&lt; previous</span>
+              </div>
+                <div href="#" class="next">
+                    <span>Next &gt;</span>
+                </div>
+    </div>
+   </div> 
+    <div class="result-container" id="result-screen" style="display:none;">
+        <div class="display-result">
+            <img src="Group 4.png" alt="">
+            <h1>RESULT</h1>
+        </div>
+        <div class="right-arrow">
+            <img src="Vector 4.png" alt="">
+            <span>70%</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <div class="left-arrow">
+            <img src="Vector 5.png" alt="">
+            <span>30%</span>
+        </div>
+        
+        <p class="score">0/5</p>
+        <p class="para">“Keep learning, you have a good score!”</p>
+        <div class="retry">
+            <span>&lt;&lt;&lt;Retry</span>
+        </div>
+    </div>
+</body>
+</html>
