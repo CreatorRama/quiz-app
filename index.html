@@ -8,8 +8,8 @@
     <script src="updated.js" defer></script>
 </head>
 <body>
-    <div class="main" id="welcome-screen" style="display: block;">
-        <img src="Group 4.png" alt="">
+    <div class="main" id="welcome-screen">
+        <img src="Group 4.png" alt="Quiz Logo">
         <div class="start-button" id="start-button">
             <h1>Start Now</h1>
             <span>&gt;&gt;&gt;</span>
@@ -23,57 +23,66 @@
     <div class="quiz-container" id="quiz-screen" style="display: none;">
         <div class="header">
             <div class="logo">
-                <img src="Group 4.png" alt="" width="222px" height="92px">
+                <img src="group 4.png" alt="Quiz Logo">
             </div>
             <div class="start-btn">
                 <h1>START</h1>
             </div>
             <div class="music-icon">
-                <img src="volumeup.png" alt="">
+                <img src="volumeup.png" alt="Volume Control">
             </div>
             <div class="questions-count">
                 <p>1/5</p>
             </div>
+            <div class="stop-watch">
+                <p>0:30</p>
+            </div>
         </div>
+        
         <div class="questions-container">
             <div class="questions">
                 <p></p>
             </div>
-            <div class="stop-watch">
-                <p>0:30</p>
-            </div>
+            
             <div class="options-container">
                 <div class="options-section">
                     <!-- Options will be dynamically added here -->
                 </div>
             </div>
-              <div href="#" class="previous">
+            
+            <div class="navigation">
+                <div class="previous">
                     <span>&lt; previous</span>
-              </div>
-                <div href="#" class="next">
+                </div>
+                <div class="next">
                     <span>Next &gt;</span>
                 </div>
+            </div>
+        </div>
     </div>
-   </div> 
+    
     <div class="result-container" id="result-screen" style="display:none;">
         <div class="display-result">
-            <img src="Group 4.png" alt="">
+            <img src="Group 4.png" alt="Quiz Logo">
             <h1>RESULT</h1>
         </div>
-        <div class="right-arrow">
-            <img src="Vector 4.png" alt="">
-            <span>70%</span>
-        </div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-        <div class="left-arrow">
-            <img src="Vector 5.png" alt="">
-            <span>30%</span>
+        
+        <div class="progress-container">
+            <div class="right-arrow">
+                <img src="Vector 4.png" alt="">
+                <span>70%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="left-arrow">
+                <img src="Vector 5.png" alt="">
+                <span>30%</span>
+            </div>
         </div>
         
         <p class="score">0/5</p>
-        <p class="para">“Keep learning, you have a good score!”</p>
+        <p class="para">"Keep learning, you have a good score!"</p>
         <div class="retry">
             <span>&lt;&lt;&lt;Retry</span>
         </div>
