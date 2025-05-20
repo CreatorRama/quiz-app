@@ -7,18 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextButton = document.querySelector('.next');
     const prevButton = document.querySelector('.previous');
     const startQuizButton = document.querySelector('.start-btn');
-    const stoppara = document.querySelector(".stop-watch > p");
+    const stoppara = document.querySelector(".stop-watch p");
     const musicicon = document.querySelector(".music-icon");
     const body = document.querySelector("body");
-    const count = document.querySelector(".questions-count>p");
+    const count = document.querySelector(".questions-count p");
     const questioncontainer = document.querySelector(".questions-container");
     const quizcontainer = document.querySelector(".quiz-container");
     const resultcontainer = document.querySelector(".result-container");
     const retrybtn = document.querySelector(".retry");
     const score = document.querySelector(".score");
     const progress = document.querySelector(".progress");
-    const rightarrow = document.querySelector(".right-arrow>span");
-    const leftarrow = document.querySelector(".left-arrow>span");
+    const rightarrow = document.querySelector(".right-arrow span");
+    const leftarrow = document.querySelector(".left-arrow span");
     const highestscore = document.getElementById("highest-score");
     const highest = document.querySelector(".highest");
     const quote = document.querySelector(".para");
@@ -55,61 +55,51 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentQuestionIndex = 0;
-
-    // Timer and Sound Setup
     let timer = 0;
     let id;
     const audio = new Audio("o-kanha.mp3");
-    let img = musicicon.firstElementChild;
-    
-    let correctcount=1;
-let correct=0;
+    let img = musicicon.querySelector('img');
+    let correctcount = 1;
+    let correct = 0;
+
     function handleOptionClick(optionDiv, option, questionObj) {
         return function() {
             const isCorrect = option === questionObj.correct;
             if (isCorrect) {
                 resultcount++;
-              correct=1
-              console.log("ram");  
+                correct = 1;
+            } else {
+                correct = 0;
             }
-            else{
-                correct=0
-                // correctcount=0
+            
+            if (correct && correctcount) {
+                optionDiv.style.backgroundColor = "rgb(104, 70, 70)";
+            } else if (!correct && correctcount) {
+                optionDiv.style.backgroundColor = "rgb(104, 70, 70)";
             }
-           if(correct && correctcount){  optionDiv.style.backgroundColor = "rgb(104, 70, 70)"; 
-           
-        }
-           else if(!correct && correctcount){
-            optionDiv.style.backgroundColor = "rgb(104, 70, 70)"
-           }
             
             const resultDiv = document.createElement('div');
-            resultDiv.classList.add('result');
-            resultDiv.innerHTML = `
-            <div class="${isCorrect ? 'correct' : 'wrong'}">
-            <img src="${isCorrect ? 'correct.png' : 'wrong.png'}" alt="">
-            </div>`;
-            resultDiv.style.position = "absolute";
-          if(correct && correctcount){    optionDiv.appendChild(resultDiv);
-            optionDiv.classList.add(isCorrect ? 'border-class-green' : 'border-class-red');
-             correctcount=0;
-          }
-          else if(!correct && correctcount){
-            optionDiv.appendChild(resultDiv);
-            optionDiv.classList.add(isCorrect ? 'border-class-green' : 'border-class-red');
-          }
-        }
+            resultDiv.classList.add(isCorrect ? 'correct' : 'wrong');
+            resultDiv.innerHTML = `<img src="${isCorrect ? 'correct.png' : 'wrong.png'}" alt="">`;
+            
+            if (correct && correctcount) {
+                optionDiv.appendChild(resultDiv);
+                optionDiv.classList.add(isCorrect ? 'border-class-green' : 'border-class-red');
+                correctcount = 0;
+            } else if (!correct && correctcount) {
+                optionDiv.appendChild(resultDiv);
+                optionDiv.classList.add(isCorrect ? 'border-class-green' : 'border-class-red');
+            }
+        };
     }
-    
-    
+
     function loadQuestion(index) {
         const questionObj = questions[index];
         questionContainer.innerText = questionObj.question;
-
         correctcount = 1;
         correct = 0;
         
-        if (optionsSection.childNodes.length > 0) optionsSection.innerHTML = ''; // Clear existing options
+        optionsSection.innerHTML = ''; // Clear existing options
         
         questionObj.options.forEach(option => {
             const optionDiv = document.createElement('div');
@@ -118,8 +108,7 @@ let correct=0;
             optionsSection.appendChild(optionDiv);
             
             const clickHandler = handleOptionClick(optionDiv, option, questionObj);
-           
-                optionDiv.addEventListener('click', clickHandler);
+            optionDiv.addEventListener('click', clickHandler);
         });
     }
 
@@ -128,13 +117,14 @@ let correct=0;
         quizScreen.style.display = 'block';
         loadQuestion(currentQuestionIndex);
     });
-let ide=0;
+
+    let ide = 0;
     startQuizButton.addEventListener('click', () => {
-        console.log("Starting the quiz");
-          // Reset the timer
-        body.style.backgroundColor = "#CCE2C2";  // Reset background color
-        // clearInterval(ide);  // Clear any previous intervals
-        ide= setInterval(() => {
+        clearInterval(ide);
+        timer = 0;
+        body.style.backgroundColor = "#CCE2C2";
+        
+        ide = setInterval(() => {
             if (timer === 15) {
                 body.style.backgroundColor = "#D4D69F";
             }
@@ -146,13 +136,13 @@ let ide=0;
             } else {
                 body.style.backgroundColor = "#CCE2C2";
                 stoppara.innerText = `0:30`;
-                clearInterval(id);
+                clearInterval(ide);
             }
             timer++;
         }, 1000);
     });
 
-    musicicon.addEventListener('click', (e) => {
+    musicicon.addEventListener('click', () => {
         if (img.src.includes("volumeup.png")) {
             img.src = "mute.png";
             audio.play();
@@ -167,9 +157,8 @@ let ide=0;
         if (currentQuestionIndex < questions.length - 1) {
             currentQuestionIndex++;
             loadQuestion(currentQuestionIndex);
-        } else {
-            alert("No more questions!");
         }
+        
         if (questionscount == 4) {
             const resultbtn = document.createElement("div");
             const resultbtnpara = document.createElement("p");
@@ -178,11 +167,11 @@ let ide=0;
             resultbtn.classList.add("show-result");
             resultbtn.appendChild(resultbtnpara);
             questioncontainer.appendChild(resultbtn);
+            
             resultbtn.addEventListener("click", () => {
-                if(timer>0 && questionscount){
-                    console.log("ram"); 
-                    clearInterval(ide)
-                    timer=0
+                if (timer > 0 && questionscount) {
+                    clearInterval(ide);
+                    timer = 0;
                     stoppara.innerText = `0:30`;
                     body.style.backgroundColor = "#CCE2C2";
                 }
@@ -193,24 +182,23 @@ let ide=0;
                 rightarrow.innerText = `${resultcount / 5 * 100}% right`;
                 const result = `${resultcount / 5 * 100}`;
                 leftarrow.innerText = `${100 - result}% wrong`;
-                resultbtn.style.display = "none";
-                if(resultcount<3){
-                    quote.innerText="Very Poor,Try Again!"
-                }
-                else{
-                    quote.innerText="“Keep learning, you have a good score!”"
+                
+                if (resultcount < 3) {
+                    quote.innerText = "Very Poor, Try Again!";
+                } else {
+                    quote.innerText = "Keep learning, you have a good score!";
                 }
             });
         }
-        if (questionscount < 5) questionscount++;
-        count.innerText = `${questionscount}:5`;
         
+        if (questionscount < 5) questionscount++;
+        count.innerText = `${questionscount}/5`;
     });
 
     retrybtn.addEventListener("click", () => {
         currentQuestionIndex = 0;
         questionscount = 1;
-        count.innerText = `${questionscount}:5`;
+        count.innerText = `${questionscount}/5`;
         loadQuestion(currentQuestionIndex);
         resultcontainer.style.display = "none";
         welcomeScreen.style.display = "block";
@@ -226,7 +214,7 @@ let ide=0;
             loadQuestion(currentQuestionIndex);
         }
         if (questionscount > 1) questionscount--;
-        count.innerText = `${questionscount}:5`;
+        count.innerText = `${questionscount}/5`;
     });
 
     // Load the first question initially
