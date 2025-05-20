@@ -152,49 +152,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    nextButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-            loadQuestion(currentQuestionIndex);
-        }
+   nextButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+    }
+    
+    // Only create the result button once when we reach the last question
+    if (questionscount === 4 && !document.querySelector('.show-result')) {
+        const resultbtn = document.createElement("div");
+        const resultbtnpara = document.createElement("p");
+        resultbtnpara.innerText = "SHOW RESULT";
+        resultbtnpara.classList.add("parag");
+        resultbtn.classList.add("show-result");
+        resultbtn.appendChild(resultbtnpara);
+        questioncontainer.appendChild(resultbtn);
         
-        if (questionscount == 4) {
-            const resultbtn = document.createElement("div");
-            const resultbtnpara = document.createElement("p");
-            resultbtnpara.innerText = "SHOW RESULT";
-            resultbtnpara.classList.add("parag");
-            resultbtn.classList.add("show-result");
-            resultbtn.appendChild(resultbtnpara);
-            questioncontainer.appendChild(resultbtn);
+        resultbtn.addEventListener("click", () => {
+            if (timer > 0 && questionscount) {
+                clearInterval(ide);
+                timer = 0;
+                stoppara.innerText = `0:30`;
+                body.style.backgroundColor = "#CCE2C2";
+            }
+            quizcontainer.style.display = "none";
+            resultcontainer.style.display = "block";
+            score.innerText = `${resultcount}/5`;
+            progress.style.width = `${resultcount / 5 * 100}%`;
+            rightarrow.innerText = `${resultcount / 5 * 100}% right`;
+            const result = `${resultcount / 5 * 100}`;
+            leftarrow.innerText = `${100 - result}% wrong`;
             
-            resultbtn.addEventListener("click", () => {
-                if (timer > 0 && questionscount) {
-                    clearInterval(ide);
-                    timer = 0;
-                    stoppara.innerText = `0:30`;
-                    body.style.backgroundColor = "#CCE2C2";
-                }
-                quizcontainer.style.display = "none";
-                resultcontainer.style.display = "block";
-                score.innerText = `${resultcount}/5`;
-                progress.style.width = `${resultcount / 5 * 100}%`;
-                rightarrow.innerText = `${resultcount / 5 * 100}% right`;
-                const result = `${resultcount / 5 * 100}`;
-                leftarrow.innerText = `${100 - result}% wrong`;
-                
-                if (resultcount < 3) {
-                    quote.innerText = "Very Poor, Try Again!";
-                } else {
-                    quote.innerText = "Keep learning, you have a good score!";
-                }
-            });
-        }
-        
-        if (questionscount < 5) questionscount++;
-        count.innerText = `${questionscount}/5`;
-    });
-
+            if (resultcount < 3) {
+                quote.innerText = "Very Poor, Try Again!";
+            } else {
+                quote.innerText = "Keep learning, you have a good score!";
+            }
+        });
+    }
+    
+    if (questionscount < 5) questionscount++;
+    count.innerText = `${questionscount}/5`;
+});
     retrybtn.addEventListener("click", () => {
         currentQuestionIndex = 0;
         questionscount = 1;
